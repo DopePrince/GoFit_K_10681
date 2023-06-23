@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('deposit_class_attendances', function (Blueprint $table) {
+            $table->string('ID_DEPOSIT_CLASS_ATTENDANCE')->primary();
+            $table->integer('ID_CLASS_BOOKING');
+            $table->foreign('ID_CLASS_BOOKING')->references('ID_CLASS_BOOKING')->on('class_bookings')->onUpdate('cascade')->onDelete('cascade');
+            $table->dateTime('TANGGAL_TRANSAKSI');
+            $table->integer('SISA_DEPOSIT_CLASS');
+            $table->date('EXPIRE_DATE');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('deposit_class_attendances');
+    }
+};
